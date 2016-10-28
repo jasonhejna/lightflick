@@ -1,5 +1,6 @@
 # lightflick
 Trigger events by flicking your lights on and off a couple times
+
 >```
           .----------.
           |   ~ON~   |
@@ -15,4 +16,6 @@ Trigger events by flicking your lights on and off a couple times
           '----------'
 >```
 
-Measure a photoresistor value and trigger events if the light are flicked on/off at least twice. Number of flicks can be set.
+Measure a photoresistor value and trigger events if the lights are flicked on/off at least twice. Number of flicks can be set.
+
+[Here's a raspberry pi wiring tutorial](https://learn.adafruit.com/basic-resistor-sensor-reading-on-raspberry-pi/basic-photocell-reading)
