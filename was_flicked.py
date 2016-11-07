@@ -3,6 +3,10 @@
 # Must be used with GPIO 0.3.1a or later - earlier verions
 # are not fast enough!
 
+# Re-calc light level every 5 individual reads. Loop through averages,
+# comparing the current average to the next one. Calculate a diff greater
+#  then 1700 to log a change in the lighting.
+
 # measured light level change = 2249
 # percent allowance = 70%
 # min light level change = 1574
@@ -11,10 +15,6 @@
 import sys
 import time
 import math
-
-
-#TODO: throw away above and replace with reading into an array of arrays that's constantly shifting. Re-calc every 5 individual reads. 300 ms total.
-
 
 class DetermineSwitch:
     def __init__(self):
@@ -35,20 +35,21 @@ class DetermineSwitch:
             self.averages.append(self.average_light_level)
             self.readings = []
             self.i = 0
-            if len(self.averages) > 200:
+            if len(self.averages) > 600:
                 self.averages.pop(0)
                 self.check_for_flick()
 
     def check_for_flick(self):
         #print 'self.averages', self.averages
-        detected_flicks = -1
-        for i in range(0, 198):
+        detected_flicks = 1
+        for i in range(0, 599):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
             diff1 = abs(self.averages[i] - self.averages[i + 1])
             if diff1 > 1700:
                 detected_flicks += 1
                 i += 1
-        print 'TOTAL FLICKS: ', math.floor(detected_flicks / 2)
+        if math.floor(detected_flicks / 2) > 2:
+            print 'TOTAL FLICKS: ', math.floor(detected_flicks / 2)
 
     def read_light(self):
         import read
