@@ -42,7 +42,7 @@ class DetermineSwitch:
 
     def check_for_flick(self):
         #print 'self.averages', self.averages
-        detected_flicks = 1
+        detected_flicks = 2
         for i in range(0, 198):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
             if abs(self.averages[i] - self.averages[i + 1]) > 1700:
@@ -54,10 +54,13 @@ class DetermineSwitch:
         # wait an extra moment to determine if another flick is coming
         # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
-        if len(self.running_flick_counts) > 3:
+        if len(self.running_flick_counts) > 4:
             self.running_flick_counts.pop(0)
             print self.running_flick_counts
-            if self.running_flick_counts[1] > 2 and self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
+            if self.running_flick_counts[1] > 2:
+                for j in range(0, 4):
+                    if self.running_flick_counts[0] != self.running_flick_counts[j]:
+                        return
                 print 'f:', self.running_flick_counts[0]
                 self.averages = []
 
