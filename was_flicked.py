@@ -51,7 +51,7 @@ class DetermineSwitch:
                 i += 1
         # wait an extra moment to determine if another flick is coming
         # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
-        if math.floor(detected_flicks / 2) > 1:
+        if math.floor(detected_flicks / 2) > 2:
             self.running_flick_counts.append(math.floor(detected_flicks / 2))
             if len(self.running_flick_counts) > 3:
                 self.running_flick_counts.pop(0)
