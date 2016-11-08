@@ -36,17 +36,19 @@ class DetermineSwitch:
             self.averages.append(self.average_light_level)
             self.readings = []
             self.i = 0
-            if len(self.averages) > 100:
+            if len(self.averages) > 200:
                 self.averages.pop(0)
                 self.check_for_flick()
 
     def check_for_flick(self):
         #print 'self.averages', self.averages
         detected_flicks = 1
-        for i in range(0, 99):
+        for i in range(0, 198):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
-            diff1 = abs(self.averages[i] - self.averages[i + 1])
-            if diff1 > 1700:
+            if abs(self.averages[i] - self.averages[i + 1]) > 1700:
+                detected_flicks += 1
+                i += 1
+            elif abs(self.averages[i] - self.averages[i + 2]) > 1700:
                 detected_flicks += 1
                 i += 1
         # wait an extra moment to determine if another flick is coming
