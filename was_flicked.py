@@ -54,7 +54,7 @@ class DetermineSwitch:
         # wait an extra moment to determine if another flick is coming
         # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
-        if len(self.running_flick_counts) > 4:
+        if len(self.running_flick_counts) > 4:  # num of items in list
             self.running_flick_counts.pop(0)
             print self.running_flick_counts
             if self.running_flick_counts[1] > 2:
@@ -63,6 +63,7 @@ class DetermineSwitch:
                         return
                 print 'f:', self.running_flick_counts[0]
                 self.averages = []
+                self.running_flick_counts = []
 
     def read_light(self):
         import read
