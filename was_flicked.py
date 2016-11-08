@@ -10,11 +10,11 @@
 # measured light level change = 2249
 # percent allowance = 70%
 # min light level change = 1574
-# num of light switch flicks = 3
 
 import sys
 import time
 import math
+import execute_functions
 
 class DetermineSwitch:
     def __init__(self):
@@ -22,8 +22,15 @@ class DetermineSwitch:
         self.average_light_level = 1500
         self.readings = []
         self.averages = []
-        self.number_of_flicks = 3
         self.running_flick_counts = []
+        self.callable_functions = {
+            3: execute_functions.f3,
+            4: execute_functions.f4,
+            5: execute_functions.f5,
+            6: execute_functions.f6,
+            7: execute_functions.f7,
+            8: execute_functions.f8
+        }
 
     def store_reads(self, light_value):
         self.readings.append(light_value)
@@ -45,10 +52,10 @@ class DetermineSwitch:
         detected_flicks = 1
         for i in range(0, 48):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
-            if abs(self.averages[i] - self.averages[i + 1]) > 1700:
+            if abs(self.averages[i] - self.averages[i + 1]) > 1600:
                 detected_flicks += 1
                 i += 1
-            elif abs(self.averages[i] - self.averages[i + 2]) > 1700:
+            elif abs(self.averages[i] - self.averages[i + 2]) > 1600:
                 detected_flicks += 1
                 i += 2
         # wait an extra moment to determine if another flick is coming
@@ -56,14 +63,15 @@ class DetermineSwitch:
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
         if len(self.running_flick_counts) > 4:  # num of items in list
             self.running_flick_counts.pop(0)
-            print self.running_flick_counts
+            #print self.running_flick_counts
             if self.running_flick_counts[1] > 2:
                 for j in range(0, 4):
                     if self.running_flick_counts[0] != self.running_flick_counts[j]:
                         return
-                print 'f:', self.running_flick_counts[0]
+                flick_count_output = self.running_flick_counts[0]
                 self.averages = []
                 self.running_flick_counts = []
+                self.execute_function(flick_count_output)
 
     def read_light(self):
         import read
@@ -80,6 +88,10 @@ class DetermineSwitch:
             self.store_reads(light_value)
             #print 'T:', time.time() - time1
 
+    def execute_function(self, flick_count):
+        self.callable_functions[int(flick_count)]()
+
+# Instantiate class
 DetermineSwitchClass = DetermineSwitch()
 is_test = sys.argv[1] == 'test'
 if is_test:
