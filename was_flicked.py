@@ -54,8 +54,8 @@ class DetermineSwitch:
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
         if len(self.running_flick_counts) > 3:
             self.running_flick_counts.pop(0)
-        if self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
-            print 'DANCE, it works'
+            if self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
+                print 'DANCE, it works'
 
     def read_light(self):
         import read
