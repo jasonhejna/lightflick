@@ -28,11 +28,11 @@ class DetermineSwitch:
     def store_reads(self, light_value):
         self.readings.append(light_value)
         self.i += 1
-        if self.i % 5 == 0 and self.i != 0:
+        if self.i % 4 == 0 and self.i != 0:
             running_light_level = 0
             for light_level in self.readings:
                 running_light_level += int(light_level)
-            self.average_light_level = running_light_level / 5
+            self.average_light_level = running_light_level / 4
             self.averages.append(self.average_light_level)
             self.readings = []
             self.i = 0
