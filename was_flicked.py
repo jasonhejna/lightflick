@@ -52,9 +52,9 @@ class DetermineSwitch:
         # wait an extra moment to determine if another flick is coming
         # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
-        if len(self.running_flick_counts) > 3:
+        if len(self.running_flick_counts) > 2:
             self.running_flick_counts.pop(0)
-            if self.running_flick_counts[2] > 2 and self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
+            if self.running_flick_counts[2] > 1 and self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
                 print 'f:', math.floor(detected_flicks / 2)
                 self.averages = []
 
