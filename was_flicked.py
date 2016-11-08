@@ -23,6 +23,7 @@ class DetermineSwitch:
         self.readings = []
         self.averages = []
         self.number_of_flicks = 3
+        self.running_flick_counts = []
 
     def store_reads(self, light_value):
         self.readings.append(light_value)
@@ -48,8 +49,13 @@ class DetermineSwitch:
             if diff1 > 1700:
                 detected_flicks += 1
                 i += 1
-        #if math.floor(detected_flicks / 2) > 2:
-        print 'TOTAL FLICKS: ', math.floor(detected_flicks / 2)
+        # wait an extra moment to determine if another flick is coming
+        # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
+        self.running_flick_counts.append(math.floor(detected_flicks / 2))
+        if len(self.running_flick_counts) > 3:
+            self.running_flick_counts.pop(0)
+        if self.running_flick_counts[0] == self.running_flick_counts[1] and self.running_flick_counts[0] == self.running_flick_counts[2]:
+            print 'DANCE, it works'
 
     def read_light(self):
         import read
