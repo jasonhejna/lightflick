@@ -56,7 +56,7 @@ class DetermineSwitch:
         while True:
             #time1 = time.time()
             self.store_reads(read.get_light_level())
-            time.sleep(0.01)
+            time.sleep(0.005)
             #print 'T:', time.time() - time1
 
     def unit_test(self):
