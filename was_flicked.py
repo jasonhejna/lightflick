@@ -50,7 +50,7 @@ class DetermineSwitch:
                 i += 1
             elif abs(self.averages[i] - self.averages[i + 2]) > 1700:
                 detected_flicks += 1
-                i += 1
+                i += 2
         # wait an extra moment to determine if another flick is coming
         # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
