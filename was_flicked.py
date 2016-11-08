@@ -48,22 +48,23 @@ class DetermineSwitch:
             if diff1 > 1700:
                 detected_flicks += 1
                 i += 1
-        if math.floor(detected_flicks / 2) > 2:
-            print 'TOTAL FLICKS: ', math.floor(detected_flicks / 2)
+        #if math.floor(detected_flicks / 2) > 2:
+        print 'TOTAL FLICKS: ', math.floor(detected_flicks / 2)
 
     def read_light(self):
         import read
         while True:
-            time1 = time.time()
+            #time1 = time.time()
             self.store_reads(read.get_light_level())
-            print 'T:', time.time() - time1
+            #print 'T:', time.time() - time1
             time.sleep(0.01)
 
     def unit_test(self):
         test_list = open('./unit_tests/unit_test_1').read().splitlines()
         for light_value in test_list:
+            #time1 = time.time()
             self.store_reads(light_value)
-
+            #print 'T:', time.time() - time1
 
 DetermineSwitchClass = DetermineSwitch()
 is_test = sys.argv[1] == 'test'
