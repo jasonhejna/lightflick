@@ -43,7 +43,7 @@ class DetermineSwitch:
     def check_for_flick(self):
         #print 'self.averages', self.averages
         detected_flicks = 1
-        for i in range(0, 49):
+        for i in range(0, 48):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
             if abs(self.averages[i] - self.averages[i + 1]) > 1700:
                 detected_flicks += 1
