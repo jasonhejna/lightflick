@@ -1,20 +1,12 @@
 #!/usr/bin/env python
 
-# Must be used with GPIO 0.3.1a or later - earlier verions
-# are not fast enough!
-
-# Re-calc light level every 5 individual reads. Loop through averages,
-# comparing the current average to the next one. Calculate a diff greater
-#  then 1700 to log a change in the lighting.
-
-# measured light level change = 2249
-# percent allowance = 70%
-# min light level change = 1574
+# Monitor light level, and check for light flicks greater then 2,
+# count flicks and return the number of flicks.
 
 import sys
-import time
 import math
 import execute_functions
+
 
 class DetermineSwitch:
     def __init__(self):
@@ -33,6 +25,8 @@ class DetermineSwitch:
         }
 
     def store_reads(self, light_value):
+        """Calculating the average of the last 4 light values, storing the resulting
+           averages in self.averages list."""
         self.readings.append(light_value)
         self.i += 1
         if self.i % 4 == 0 and self.i != 0:
@@ -48,7 +42,9 @@ class DetermineSwitch:
                 self.check_for_flick()
 
     def check_for_flick(self):
-        #print 'self.averages', self.averages
+        """Check if the light was flicked more then 2 times. Count the number of times.
+           Looking through self.averages to determine number of times there was a difference
+           between the current value, and the next value in the list."""
         detected_flicks = 1
         for i in range(0, 48):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
@@ -58,12 +54,10 @@ class DetermineSwitch:
             elif abs(self.averages[i] - self.averages[i + 2]) > 1600:
                 detected_flicks += 1
                 i += 2
-        # wait an extra moment to determine if another flick is coming
-        # keep a running list of determined flicks, if they all match, then that is the number. maybe 3 or 4 items
         self.running_flick_counts.append(math.floor(detected_flicks / 2))
+        # wait an extra average iteration to determine if another flick is coming
         if len(self.running_flick_counts) > 4:  # num of items in list
             self.running_flick_counts.pop(0)
-            #print self.running_flick_counts
             if self.running_flick_counts[1] > 2:
                 for j in range(0, 4):
                     if self.running_flick_counts[0] != self.running_flick_counts[j]:
@@ -74,14 +68,15 @@ class DetermineSwitch:
                 self.execute_function(flick_count_output)
 
     def read_light(self):
+        """Infinite loop that will read the light level. There's a built in delay of 10ms in read.py."""
         import read
         while True:
             #time1 = time.time()
             self.store_reads(read.get_light_level())
-            #time.sleep(0.01)
             #print 'T:', time.time() - time1
 
     def unit_test(self):
+        """Read unit test values from files in the unit_tests directory"""
         test_list = open('./unit_tests/unit_test_1').read().splitlines()
         for light_value in test_list:
             #time1 = time.time()
@@ -91,11 +86,12 @@ class DetermineSwitch:
     def execute_function(self, flick_count):
         self.callable_functions[int(flick_count)]()
 
-# Instantiate class
+
+# Run
 DetermineSwitchClass = DetermineSwitch()
 is_test = sys.argv[1] == 'test'
 if is_test:
-    print 'Unit Testing'
+    print 'Unit Testing Starting...'
     DetermineSwitchClass.unit_test()
 else:
     DetermineSwitchClass.read_light()

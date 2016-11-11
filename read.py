@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# Read the light level from a GPIO pin on a raspberry pi
 # Must be used with GPIO 0.3.1a or later - earlier verions
 # are not fast enough!
 
