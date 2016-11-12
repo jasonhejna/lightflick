@@ -23,3 +23,4 @@ def start():
 
 
 print start()
+exit()
