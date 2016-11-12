@@ -43,8 +43,8 @@ class DetermineSwitch:
 
     def check_for_flick(self):
         """Check if the light was flicked more then 2 times. Count the number of times.
-           Looking through self.averages to determine number of times there was a difference
-           between the current value, and the next value in the list."""
+           Looking through self.averages to determine number of times there was a significant
+           difference between the current value, and the next value in the list."""
         detected_flicks = 1
         for i in range(0, 48):
             #print self.averages[i], ' - ', self.averages[i + 1], ' = ', self.averages[i] - self.averages[i + 1]
