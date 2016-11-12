@@ -16,6 +16,10 @@ def turn_on_for():
     GPIO.cleanup()
 
 
-thread = threading.Thread(target=turn_on_for)
-thread.start()
-print thread.isAlive()
+def start():
+    thread = threading.Thread(target=turn_on_for)
+    thread.start()
+    return thread.isAlive()
+
+
+print start()
