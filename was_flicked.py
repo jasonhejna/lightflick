@@ -61,9 +61,13 @@ class DetermineSwitch:
                     if self.running_flick_counts[0] != self.running_flick_counts[j]:
                         return
                 flick_count_output = self.running_flick_counts[0]
+                # clear lists
                 self.averages = []
                 self.running_flick_counts = []
-                self.execute_function(flick_count_output)
+                # boom: multiple flicks detected!
+                import relay
+                relay.turn_on_relay_for(GPIO, 20)
+                #self.execute_function(flick_count_output)
 
     def read_light(self):
         """Infinite loop that will read the light level. There's a built in delay of 10ms in read.py."""
