@@ -3,9 +3,7 @@
 # Monitor light level, and check for light flicks greater then 2,
 # count flicks and return the number of flicks.
 
-import sys
-import math
-import execute_functions
+import sys, math, execute_functions, RPi.GPIO as GPIO
 
 
 class DetermineSwitch:
@@ -85,7 +83,6 @@ class DetermineSwitch:
 
     def execute_function(self, flick_count):
         self.callable_functions[int(flick_count)]()
-
 
 # Run
 DetermineSwitchClass = DetermineSwitch()

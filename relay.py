@@ -5,7 +5,8 @@
 
 # TODO: The Thread need to shut itself down gracefully
 
-import RPi.GPIO as GPIO, threading, time
+import threading, time
+from was_flicked import GPIO
 
 
 def run_for(on_for_time):

@@ -4,7 +4,8 @@
 # Must be used with GPIO 0.3.1a or later - earlier verions
 # are not fast enough!
 
-import RPi.GPIO as GPIO, time, os
+import time
+from was_flicked import GPIO
 
 DEBUG = 1
 GPIO.setmode(GPIO.BCM)
