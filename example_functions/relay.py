@@ -4,7 +4,7 @@
 
 # TODO: The Thread need to shut itself down gracefully
 
-import RPi.GPIO as GPIO, threading, time, atexit
+import RPi.GPIO as GPIO, threading, time
 
 
 def turn_on_for(set_time):
@@ -15,13 +15,6 @@ def turn_on_for(set_time):
     GPIO.output(16, GPIO.LOW)
     GPIO.cleanup()
 
-
-def exit_handler():
-    GPIO.output(16, GPIO.LOW)
-    GPIO.cleanup()
-    print 'exiting'
-
-atexit.register(exit_handler)
 
 thread = threading.Thread(target=turn_on_for, args=(20))
 thread.start()
