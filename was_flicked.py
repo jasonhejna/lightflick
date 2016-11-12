@@ -68,9 +68,11 @@ class DetermineSwitch:
     def read_light(self):
         """Infinite loop that will read the light level. There's a built in delay of 10ms in read.py."""
         import read
+        readLight = read.readLight()
+        readLight.instantiate(GPIO)
         while True:
             #time1 = time.time()
-            self.store_reads(read.get_light_level())
+            self.store_reads(readLight.get_light_level())
             #print 'T:', time.time() - time1
 
     def unit_test(self):
@@ -82,7 +84,7 @@ class DetermineSwitch:
             #print 'T:', time.time() - time1
 
     def execute_function(self, flick_count):
-        self.callable_functions[int(flick_count)]()
+        self.callable_functions[int(flick_count)](GPIO)
 
 # Run
 DetermineSwitchClass = DetermineSwitch()

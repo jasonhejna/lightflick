@@ -4,9 +4,10 @@
 
 import relay
 
-def f3():
+
+def f3(gpio):
     print("3 was called!")
-    relay.turn_on_relay_for(30)
+    relay.turn_on_relay_for(gpio, 30)
 
 
 def f4():

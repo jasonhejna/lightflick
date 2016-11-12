@@ -5,22 +5,22 @@
 # are not fast enough!
 
 import time
-from was_flicked import GPIO
 
-DEBUG = 1
-GPIO.setmode(GPIO.BCM)
-RCPIN = 20
+class readLight:
+    def instantiate(self, input_gpio):
+        self.gpio = input_gpio
+        self.gpio.setmode(self.gpio.BCM)
+        self.RCPIN = 20
 
+    def get_light_level(self):
+        reading = 0
+        self.gpio.setup(self.RCPIN, self.gpio.OUT)
+        self.gpio.output(self.RCPIN, self.gpio.LOW)
+        # 10 milliseconds
+        time.sleep(0.01)
 
-def get_light_level():
-    reading = 0
-    GPIO.setup(RCPIN, GPIO.OUT)
-    GPIO.output(RCPIN, GPIO.LOW)
-    # 10 milliseconds
-    time.sleep(0.01)
-
-    GPIO.setup(RCPIN, GPIO.IN)
-    # This takes about 1 millisecond per loop cycle
-    while (GPIO.input(RCPIN) == GPIO.LOW):
-        reading += 1
-    return reading
+        self.gpio.setup(self.RCPIN, self.gpio.IN)
+        # This takes about 1 millisecond per loop cycle
+        while (self.gpio.input(self.RCPIN) == self.gpio.LOW):
+            reading += 1
+        return reading

@@ -6,10 +6,9 @@
 # TODO: The Thread need to shut itself down gracefully
 
 import threading, time
-from was_flicked import GPIO
 
 
-def run_for(on_for_time):
+def run_for(GPIO, on_for_time):
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(16, GPIO.OUT)
     GPIO.output(16, GPIO.HIGH)
@@ -18,6 +17,6 @@ def run_for(on_for_time):
     GPIO.cleanup()
 
 
-def turn_on_relay_for(input_time):
-    thread = threading.Thread(target=run_for, args=[input_time])
+def turn_on_relay_for(GPIO, input_time):
+    thread = threading.Thread(target=run_for, args=[GPIO, input_time])
     thread.start()
