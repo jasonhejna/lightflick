@@ -10,7 +10,8 @@ def f3():
 
 def f4():
     print("4 was called!")
-
+    import relay
+    relay.turn_on_relay_for(30)
 
 def f5():
     print("5 was called!")
