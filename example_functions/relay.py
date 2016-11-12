@@ -23,4 +23,6 @@ def start():
 
 
 print start()
-exit()
+for i in range(0, 100):
+    print i
+    time.sleep(1)
