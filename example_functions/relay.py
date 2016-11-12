@@ -17,4 +17,3 @@ def turn_on_for():
 
 
 thread = threading.Thread(target=turn_on_for)
-thread.start()
