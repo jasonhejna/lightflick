@@ -4,6 +4,8 @@
 
 def f3():
     print("3 was called!")
+    import relay
+    relay.turn_on_relay_for(30)
 
 
 def f4():

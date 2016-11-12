@@ -8,7 +8,7 @@
 import RPi.GPIO as GPIO, threading, time
 
 
-def turn_on_for(on_for_time):
+def run(on_for_time):
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(16, GPIO.OUT)
     GPIO.output(16, GPIO.HIGH)
@@ -17,8 +17,6 @@ def turn_on_for(on_for_time):
     GPIO.cleanup()
 
 
-def start(input_time):
-    thread = threading.Thread(target=turn_on_for, args=[input_time])
+def turn_on_relay_for(input_time):
+    thread = threading.Thread(target=run, args=[input_time])
     thread.start()
-
-start(20)
