@@ -9,7 +9,7 @@ import threading, time
 
 
 def run_for(GPIO, on_for_time):
-    GPIO.setmode(GPIO.BOARD)
+    #GPIO.setmode(GPIO.BOARD)
     GPIO.setup(16, GPIO.OUT)
     GPIO.output(16, GPIO.HIGH)
     time.sleep(on_for_time)
