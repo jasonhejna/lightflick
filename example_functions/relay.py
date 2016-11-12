@@ -20,3 +20,5 @@ def turn_on_for(on_for_time):
 def start(input_time):
     thread = threading.Thread(target=turn_on_for, args=[input_time]).start()
     return thread.isAlive()
+
+start(20)
