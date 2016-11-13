@@ -4,6 +4,7 @@
 # count flicks and return the number of flicks.
 
 import sys, math, execute_functions, RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BOARD)
 
 
 class DetermineSwitch:

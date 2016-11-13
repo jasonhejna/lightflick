@@ -9,8 +9,8 @@ import time
 class readLight:
     def instantiate(self, input_gpio):
         self.gpio = input_gpio
-        self.gpio.setmode(self.gpio.BCM)
-        self.RCPIN = 20
+        #self.gpio.setmode(self.gpio.BCM)
+        self.RCPIN = 38
 
     def get_light_level(self):
         reading = 0
